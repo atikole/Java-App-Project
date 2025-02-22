@@ -31,7 +31,7 @@ pipeline {
     }
     stage('Build and Push Docker Image') {
       environment {
-        DOCKER_IMAGE = "aakashtikole/jenkins-cicd:${BUILD_NUMBER}"
+        DOCKER_IMAGE = "atikole/jenkins-cicd:${BUILD_NUMBER}"
         // DOCKERFILE_LOCATION = "spring-boot-app/Dockerfile"
         REGISTRY_CREDENTIALS = credentials('docker-cred')
       }
@@ -48,13 +48,13 @@ pipeline {
     stage('Update Deployment File') {
         environment {
             GIT_REPO_NAME = "Java-App-Project"
-            GIT_USER_NAME = "aakashtikole"
+            GIT_USER_NAME = "atikole"
         }
         steps {
             withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
                 sh '''
-                    git config user.email "aakashtikole10@gmail.com"
-                    git config user.name "aakashtikole"
+                    git config user.email "tikoleakanksha@gmail.com"
+                    git config user.name "atikole"
                     BUILD_NUMBER=${BUILD_NUMBER}
                     sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" spring-boot-app-manifests/deployment.yml
                     git add spring-boot-app-manifests/deployment.yml
